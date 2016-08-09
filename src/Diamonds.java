@@ -1,17 +1,18 @@
-class Poker extends Game {
+class Diamonds extends Game {
 
-	
-	public Poker(int joker) {
-		this.numberOfCards=5;
+	public Diamonds(int joker) {
+		this.numberOfCards=13;
 		deck = new Deck(1);
-		deck.shuffle();
+		
 		hand = new Hand(deck,numberOfCards);
 		this.numberOfCards = numberOfCards;
 	}
 	
+	
+	
 	@Override
 	void evaluate(Hand hand) {
-		
+		// TODO Auto-generated method stub
 		
 	}
 	

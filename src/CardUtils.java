@@ -68,7 +68,7 @@ public class CardUtils {
     	
     	final int SUITECOUNT = 4;
     	
-    	for(int i=0; i<SUITECOUNT;i++) {
+    	for(int i=0; i<=SUITECOUNT;i++) {
     		AllList.add(new ArrayList<Card>());
     	}
     	
@@ -76,17 +76,43 @@ public class CardUtils {
     		if(card.getSuite()==Card.Suites.SPADES) {
     			AllList.get(0).add(card);
     		}
-    		if(card.getSuite()==Card.Suites.DIAMONDS) {
-    			AllList.get(0).add(card);
+    		else if(card.getSuite()==Card.Suites.HEARTS) {
+    			AllList.get(1).add(card);
     		}
-    		if(card.getSuite()==Card.Suites.SPADES) {
-    			AllList.get(0).add(card);
+    		else if(card.getSuite()==Card.Suites.DIAMONDS) {
+    			AllList.get(2).add(card);
     		}
-    		if(card.getSuite()==Card.Suites.SPADES) {
-    			AllList.get(0).add(card);
+    		else if(card.getSuite()==Card.Suites.CLUBS) {
+    			AllList.get(3).add(card);
+    		}
+    		else if(card.getSuite()==Card.Suites.JOKER) {
+    			AllList.get(4).add(card);
     		}
     	}
     	
+    	for(int i=0; i<=SUITECOUNT;i++) {
+
+    		//System.out.println((AllList.get(i)));
+    		System.out.println(sortCards(AllList.get(i)));
+    		sortedList.addAll(sortCards(AllList.get(i)));
+    	}
+
+    	
     	return sortedList;
     }
+    
+    public static List<Card> sortCards(List<Card> suite) {
+    	List<Card> sortList = new ArrayList<Card>();
+    	sortList.addAll(suite);
+    	
+    	Collections.sort(sortList, new Comparator<Card>() {
+            public int compare(Card a, Card b) {
+                return a.getFaceValue()>=b.getFaceValue()?1:0;
+            }
+
+        });
+    	
+    	return sortList;
+    }
+    
 }

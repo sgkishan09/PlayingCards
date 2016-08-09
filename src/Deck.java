@@ -2,7 +2,7 @@ import java.util.*;
 
 
 public class Deck {
-    private ArrayList<Card> deck;
+    protected ArrayList<Card> deck;
 
     /**
      * Constructor for Deck. Makes a normal deck.
