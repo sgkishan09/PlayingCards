@@ -1,7 +1,7 @@
 class Test {
 
     public static void main(String[] args) {
-        Deck d = new Deck();
+        Deck d = new Deck(1);
         d.shuffle();
         System.out.println(d.toString());
         Card currentCard = d.draw();

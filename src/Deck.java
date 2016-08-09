@@ -7,16 +7,10 @@ public class Deck {
     /**
      * Constructor for Deck. Makes a normal deck.
      */
-    public Deck() {
-        deck = new ArrayList<Card>();
-
-        String[] cards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
-        for (String card : cards) {
-            deck.add(new Card(card, Card.Suites.SPADES));
-            deck.add(new Card(card, Card.Suites.HEARTS));
-            deck.add(new Card(card, Card.Suites.DIAMONDS));
-            deck.add(new Card(card, Card.Suites.CLUBS));
-        }
+    public Deck(int n) {
+    	for(int i=0;i<n;i++) {
+    		deck.addAll(new Pack().getDeck());
+    	}
     }
 
     /**
