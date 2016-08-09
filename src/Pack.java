@@ -8,25 +8,36 @@ public class Pack {
 	/**
 	 * Constructor for Pack. Makes a normal pack.
 	 */
-	public Pack() {
-		pack = new ArrayList<Card>();
-
-		String[] cards = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
-		for (String card: cards) {
-			pack.add(new Card(card,Card.Suites.SPADES));
-			pack.add(new Card(card,Card.Suites.HEARTS));
-			pack.add(new Card(card,Card.Suites.DIAMONDS));
-			pack.add(new Card(card,Card.Suites.CLUBS));
-		}
-		
+	public Pack(boolean jokerInPack) {
+		initialize(jokerInPack);
 	}
+
+	public Pack(){
+	    initialize(false);
+    }
+
+    private void initialize(boolean jokerInPack) {
+        pack = new ArrayList<Card>();
+        String[] cards = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
+        for (String card: cards) {
+            pack.add(new Card(card,Card.Suites.SPADES));
+            pack.add(new Card(card,Card.Suites.HEARTS));
+            pack.add(new Card(card,Card.Suites.DIAMONDS));
+            pack.add(new Card(card,Card.Suites.CLUBS));
+        }
+        if(jokerInPack){
+            pack.add(new Card("JOKER", Card.Suites.JOKER));
+            pack.add(new Card("JOKER", Card.Suites.JOKER));
+        }
+    }
 	
 	/**
      * Returns the List of cards in pack
      *
      * @return List<Card>
      */
-    protected List<Card> getPack() {
+
+    protected List<Card> getCards() {
         return pack;
     }
 

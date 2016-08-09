@@ -10,8 +10,10 @@ public class Deck {
     public Deck(int n) {
     	deck = new ArrayList<>();
     	for(int i=0;i<n;i++) {
+
     		Pack p = new Pack();
-    		deck.addAll(p.getPack());
+    		deck.addAll(p.getCards());
+
     	}
     }
 

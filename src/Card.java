@@ -8,11 +8,11 @@ class Card {
     private static Map<String, Integer> NumericalValue = null;
 
     protected static enum Suites {
-        SPADES, HEARTS, DIAMONDS, CLUBS
+        SPADES, HEARTS, DIAMONDS, CLUBS, JOKER
     }
 
     protected static enum Colors {
-        BLACK, RED
+        BLACK, RED, JOKER
     }
 
 
@@ -35,7 +35,7 @@ class Card {
         NumericalValue.put("Q", 12);
         NumericalValue.put("K", 13);
         NumericalValue.put("A", 14);
-
+        NumericalValue.put("JOKER", -1);
     }
 
     /*
@@ -60,15 +60,22 @@ class Card {
 
 
     public Card(String face, Suites suite) {
-        if(NumericalValue == null){
+        if (NumericalValue == null) {
             createMap();
         }
-        this.face = face;
+        this.face = face.toUpperCase();
         this.suite = suite;
     }
 
-    public String toString(){
-        return getFace() + " of " + getSuite();
+    public String toString() {
+        if (!face.equalsIgnoreCase("JOKER"))
+            return getFace() + " of " + getSuite();
+        else
+            return "JOKER";
+    }
+    
+    public static void setAceValue(int value) {
+    	NumericalValue.put("A", value);
     }
 
 }
