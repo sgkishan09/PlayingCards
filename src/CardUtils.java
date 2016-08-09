@@ -27,8 +27,8 @@ public class CardUtils {
     public static boolean areSequential(List<Card> cards) {
         List<Integer> values = getFaceValues(cards);
         Collections.sort(values);
-        for (int i = 0; i < values.size() - 1 ; i++){
-            if(values.get(i + 1) - values.get(i) != 1)
+        for (int i = 0; i < values.size() - 1; i++) {
+            if (values.get(i + 1) - values.get(i) != 1)
                 return false;
         }
         return true;
@@ -37,7 +37,7 @@ public class CardUtils {
     public static List<Integer> getFaceValues(List<Card> cards) {
         List<Integer> values = new ArrayList<Integer>();
         for (Card card : cards) {
-            values.add(card.getFace());
+            values.add(card.getFaceValue());
         }
         return values;
     }
