@@ -1,8 +1,8 @@
-class Poker extends Game {
+class Rummy extends Game {
 
 	
-	public Poker(int joker) {
-		this.numberOfCards=5;
+	public Rummy(int joker) {
+		this.numberOfCards=13;
 		deck = new Deck(0);
 		hand = new Hand(deck,numberOfCards);
 		this.numberOfCards = numberOfCards;
@@ -10,6 +10,7 @@ class Poker extends Game {
 	
 	@Override
 	void evaluate(Hand hand) {
+		CardUtils.sortCardsOnSuite(hand);
 		
 		
 	}

@@ -60,4 +60,33 @@ public class CardUtils {
         }
         return values;
     }
+    
+    public static List<Card> sortCardsOnSuite(Hand hand) {
+    	List<Card> sortedList = new ArrayList<>();
+    	
+    	List<List<Card>> AllList = new ArrayList<>();
+    	
+    	final int SUITECOUNT = 4;
+    	
+    	for(int i=0; i<SUITECOUNT;i++) {
+    		AllList.add(new ArrayList<Card>());
+    	}
+    	
+    	for(Card card : hand.hand) {
+    		if(card.getSuite()==Card.Suites.SPADES) {
+    			AllList.get(0).add(card);
+    		}
+    		if(card.getSuite()==Card.Suites.DIAMONDS) {
+    			AllList.get(0).add(card);
+    		}
+    		if(card.getSuite()==Card.Suites.SPADES) {
+    			AllList.get(0).add(card);
+    		}
+    		if(card.getSuite()==Card.Suites.SPADES) {
+    			AllList.get(0).add(card);
+    		}
+    	}
+    	
+    	return sortedList;
+    }
 }

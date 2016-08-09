@@ -3,7 +3,7 @@ import java.util.List;
 
 class Hand {
 	
-	private List<Card> hand;
+	protected List<Card> hand;
 	
 	/**
 	 * Constructor for Hand. Makes a hand based on given deck and number of cards in hand for the game
