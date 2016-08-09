@@ -9,7 +9,7 @@ public class Deck {
      */
     public Deck(int n) {
     	for(int i=0;i<n;i++) {
-    		deck.addAll(new Pack().getDeck());
+    		deck.addAll(new Pack().getCards());
     	}
     }
 
