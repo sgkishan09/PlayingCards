@@ -8,8 +8,10 @@ public class Deck {
      * Constructor for Deck. Makes a normal deck.
      */
     public Deck(int n) {
+    	deck = new ArrayList<>();
     	for(int i=0;i<n;i++) {
-    		deck.addAll(new Pack().getDeck());
+    		Pack p = new Pack();
+    		deck.addAll(p.getPack());
     	}
     }
 

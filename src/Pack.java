@@ -22,11 +22,11 @@ public class Pack {
 	}
 	
 	/**
-     * Shuffle the pack. Randomly re-orders the cards.
+     * Returns the List of cards in pack
      *
-     * @return void
+     * @return List<Card>
      */
-    protected List<Card> getDeck() {
+    protected List<Card> getPack() {
         return pack;
     }
 
