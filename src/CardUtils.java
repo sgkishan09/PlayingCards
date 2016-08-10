@@ -45,7 +45,7 @@ public class CardUtils {
             if (values.get(i + 1) == -1)
                 numOfJokers++;
             if (values.get(i + 1) - values.get(i) != 1)
-                if(numOfJokers > 0)
+                if (numOfJokers > 0)
                     numOfJokers--;
                 else
                     return false;
@@ -60,59 +60,87 @@ public class CardUtils {
         }
         return values;
     }
-    
-    public static List<Card> sortCardsOnSuite(Hand hand) {
-    	List<Card> sortedList = new ArrayList<>();
-    	
-    	List<List<Card>> AllList = new ArrayList<>();
-    	
-    	final int SUITECOUNT = 4;
-    	
-    	for(int i=0; i<=SUITECOUNT;i++) {
-    		AllList.add(new ArrayList<Card>());
-    	}
-    	
-    	for(Card card : hand.hand) {
-    		if(card.getSuit()== Card.Suit.SPADES) {
-    			AllList.get(0).add(card);
-    		}
-    		else if(card.getSuit()== Card.Suit.HEARTS) {
-    			AllList.get(1).add(card);
-    		}
-    		else if(card.getSuit()== Card.Suit.DIAMONDS) {
-    			AllList.get(2).add(card);
-    		}
-    		else if(card.getSuit()== Card.Suit.CLUBS) {
-    			AllList.get(3).add(card);
-    		}
-    		else if(card.getSuit()== Card.Suit.JOKER) {
-    			AllList.get(4).add(card);
-    		}
-    	}
-    	
-    	for(int i=0; i<=SUITECOUNT;i++) {
 
-    		//System.out.println((AllList.get(i)));
-    		System.out.println(sortCards(AllList.get(i)));
-    		sortedList.addAll(sortCards(AllList.get(i)));
-    	}
-
-    	
-    	return sortedList;
+    public static List<Card.Suit> getSuitValues(List<Card> cards) {
+        List<Card.Suit> values = new ArrayList<>();
+        for (Card card : cards) {
+            values.add(card.getSuit());
+        }
+        return values;
     }
-    
+
+    public static List<Card> sortCardsOnSuite(Hand hand) {
+        List<Card> sortedList = new ArrayList<>();
+
+        List<List<Card>> AllList = new ArrayList<>();
+
+        final int SUITECOUNT = 4;
+
+        for (int i = 0; i <= SUITECOUNT; i++) {
+            AllList.add(new ArrayList<Card>());
+        }
+
+        for (Card card : hand.hand) {
+            if (card.getSuit() == Card.Suit.SPADES) {
+                AllList.get(0).add(card);
+            } else if (card.getSuit() == Card.Suit.HEARTS) {
+                AllList.get(1).add(card);
+            } else if (card.getSuit() == Card.Suit.DIAMONDS) {
+                AllList.get(2).add(card);
+            } else if (card.getSuit() == Card.Suit.CLUBS) {
+                AllList.get(3).add(card);
+            } else if (card.getSuit() == Card.Suit.JOKER) {
+                AllList.get(4).add(card);
+            }
+        }
+
+        for (int i = 0; i <= SUITECOUNT; i++) {
+
+            //System.out.println((AllList.get(i)));
+            System.out.println(sortCards(AllList.get(i)));
+            sortedList.addAll(sortCards(AllList.get(i)));
+        }
+
+
+        return sortedList;
+    }
+
     public static List<Card> sortCards(List<Card> suite) {
-    	List<Card> sortList = new ArrayList<Card>();
-    	sortList.addAll(suite);
-    	
-    	Collections.sort(sortList, new Comparator<Card>() {
+        List<Card> sortList = new ArrayList<Card>();
+        sortList.addAll(suite);
+
+        Collections.sort(sortList, new Comparator<Card>() {
             public int compare(Card a, Card b) {
-                return a.getFaceValue()>=b.getFaceValue()?1:0;
+                return a.getFaceValue() >= b.getFaceValue() ? 1 : 0;
             }
 
         });
-    	
-    	return sortList;
+
+        return sortList;
     }
-    
+
+    public static int distinctFaces(List<Card> cards) {
+        Set<Integer> faces = new HashSet<Integer>();
+        for (Card card : cards) {
+            faces.add(card.getFaceValue());
+        }
+        return faces.size();
+    }
+
+    public static int distinctSuits(List<Card> cards) {
+        Set<Card.Suit> suits = new HashSet<Card.Suit>();
+        for (Card card : cards) {
+            suits.add(card.getSuit());
+        }
+        return suits.size();
+    }
+
+    public static boolean containsFace(List<Card> cards, int faceValue) {
+        for (Card card : cards) {
+            if (card.getFaceValue() == faceValue)
+                return true;
+        }
+        return false;
+    }
+
 }

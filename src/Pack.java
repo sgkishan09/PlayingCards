@@ -3,35 +3,37 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 public class Pack {
-	private ArrayList<Card> pack;
-	
-	/**
-	 * Constructor for Pack. Makes a normal pack.
-	 */
-	public Pack(boolean jokerInPack) {
-		initialize(jokerInPack);
-	}
+    private ArrayList<Card> pack;
 
-	public Pack(){
-	    initialize(false);
+    /**
+     * Constructor for Pack. Makes a normal pack.
+     */
+    public Pack(int jokersInPack) {
+        initialize(jokersInPack);
     }
 
-    private void initialize(boolean jokerInPack) {
+    public Pack() {
+        initialize(0);
+    }
+
+    private void initialize(int jokersInPack) {
         pack = new ArrayList<Card>();
-        String[] cards = {"2","3","4","5","6","7","8","9","10","J","Q","K","A"};
-        for (String card: cards) {
+        String[] cards = {"2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A"};
+        for (String card : cards) {
             pack.add(new Card(card, Card.Suit.SPADES));
             pack.add(new Card(card, Card.Suit.HEARTS));
             pack.add(new Card(card, Card.Suit.DIAMONDS));
             pack.add(new Card(card, Card.Suit.CLUBS));
         }
-        if(jokerInPack){
+        int i = jokersInPack;
+        while (i > 0) {
             pack.add(new Card("JOKER", Card.Suit.JOKER));
-            pack.add(new Card("JOKER", Card.Suit.JOKER));
+            i--;
         }
+
     }
-	
-	/**
+
+    /**
      * Returns the List of cards in pack
      *
      * @return List<Card>
@@ -41,8 +43,8 @@ public class Pack {
         return pack;
     }
 
-	
-	/**
+
+    /**
      * Shuffle the pack. Randomly re-orders the cards.
      *
      * @return void
