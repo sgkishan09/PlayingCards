@@ -11,7 +11,9 @@ public class PCPlayer {
     PCPlayer(DiamondStrategy currentStrategy, List<Card> playerCards){
         playingStrategy = currentStrategy;
         hand = playerCards;
+    }    
+    public Card getNextMove(Card currentOpenCard){
+    	return playingStrategy.getNextMove(currentOpenCard, this.hand);
     }
-
     
 }
