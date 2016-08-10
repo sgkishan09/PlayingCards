@@ -75,5 +75,8 @@ class Card {
         else
             return "JOKER";
     }
+    public boolean equals(Card card){
+        return getFaceValue() == card.getFaceValue() && suit == card.getSuit();
+    }
 
 }

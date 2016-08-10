@@ -1,14 +1,13 @@
 import java.util.*;
 
-class Poker extends Game {
+class Poker extends DiamondGame {
 
 
     public Poker(int jokersPerPack) {
-        this.numberOfCards = 5;
-        deck = new Deck(1, jokersPerPack);
+
+        Deck deck = new Deck(1, jokersPerPack);
         deck.shuffle();
-        hand = new Hand(deck, numberOfCards);
-        this.numberOfCards = numberOfCards;
+        Hand hand = new Hand(5);
     }
 
     public static enum WinCategory {

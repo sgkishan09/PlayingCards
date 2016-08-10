@@ -13,4 +13,16 @@ public class Hand {
 		this.cards.add(card);
 	}
 
+	public ArrayList<Card> getCards(){
+	    return cards;
+    }
+
+    public boolean removeCard(Card card){
+        for(Card iCard : cards){
+        	if(card.equals(iCard))
+				return cards.remove(iCard);
+		}
+		return false;
+    }
+
 }
