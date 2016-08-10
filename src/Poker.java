@@ -47,10 +47,13 @@ class Poker extends Game {
 
                 else category = flush ? WinCategory.STRAIGHT_FLUSH : WinCategory.STRAIGHT;
 
-            } else if (isTwoToFive(arry) && CardUtils.containsFace(bestFive, ACE_VALUE)) {
-                category = flush ? WinCategory.STRAIGHT_FLUSH : WinCategory.STRAIGHT;
-            } else {
-                category = flush ? WinCategory.FLUSH : WinCategory.HIGH_CARD;
+            }
+            else {
+                if (isTwoToFive(arry) && CardUtils.containsFace(bestFive, ACE_VALUE)) {
+                    category = flush ? WinCategory.STRAIGHT_FLUSH : WinCategory.STRAIGHT;
+                } else {
+                    category = flush ? WinCategory.FLUSH : WinCategory.HIGH_CARD;
+                }
             }
         } else if (distinctCount == 4) {
             category = WinCategory.ONE_PAIR;

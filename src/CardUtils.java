@@ -137,7 +137,7 @@ public class CardUtils {
 
     public static boolean containsFace(List<Card> cards, int faceValue) {
         for (Card card : cards) {
-            if (card.getFaceValue() == faceValue)
+            if (card.getFaceValue() == faceValue || card.getFaceValue() == -1)
                 return true;
         }
         return false;
