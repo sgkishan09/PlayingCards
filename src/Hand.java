@@ -1,27 +1,24 @@
+package card;
+
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collections;
 
-class Hand {
-
-    protected List<Card> hand;
-
-    /**
-     * Constructor for Hand. Makes a hand based on given deck and number of cards in hand for the game
-     */
-    public Hand(Deck deck, int noOfCards) {
-        hand = new ArrayList<>();
-        for (int i = 0; i < noOfCards; i++) {
-            hand.add(deck.draw());
-        }
-    }
-
-    /**
-     * Returns the List of cards in hand
-     *
-     * @return List<Card>
-     */
-    protected List<Card> getHand() {
-        return hand;
-    }
-
+public class Hand {
+	private ArrayList<Card> cards;
+	private int noOfCards;
+	
+	public Hand(int noOfCards) {
+		this.noOfCards = noOfCards;
+		this.cards = new ArrayList<>();
+	}
+	
+	public void addCard(Card card) {
+		this.cards.add(card);
+	}
+	
+	public ArrayList<Card> getSortedCards() {
+		ArrayList<Card> sortedCards = this.cards;
+		Collections.sort(sortedCards);
+		return sortedCards;
+	}
 }
