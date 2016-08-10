@@ -69,54 +69,13 @@ public class CardUtils {
         return values;
     }
 
-    public static List<Card> sortCardsOnSuite(Hand hand) {
-        List<Card> sortedList = new ArrayList<>();
-
-        List<List<Card>> AllList = new ArrayList<>();
-
-        final int SUITECOUNT = 4;
-
-        for (int i = 0; i <= SUITECOUNT; i++) {
-            AllList.add(new ArrayList<Card>());
-        }
-
-        for (Card card : hand.hand) {
-            if (card.getSuit() == Card.Suit.SPADES) {
-                AllList.get(0).add(card);
-            } else if (card.getSuit() == Card.Suit.HEARTS) {
-                AllList.get(1).add(card);
-            } else if (card.getSuit() == Card.Suit.DIAMONDS) {
-                AllList.get(2).add(card);
-            } else if (card.getSuit() == Card.Suit.CLUBS) {
-                AllList.get(3).add(card);
-            } else if (card.getSuit() == Card.Suit.JOKER) {
-                AllList.get(4).add(card);
-            }
-        }
-
-        for (int i = 0; i <= SUITECOUNT; i++) {
-
-            //System.out.println((AllList.get(i)));
-            System.out.println(sortCards(AllList.get(i)));
-            sortedList.addAll(sortCards(AllList.get(i)));
-        }
-
-
-        return sortedList;
-    }
-
-    public static List<Card> sortCards(List<Card> suite) {
-        List<Card> sortList = new ArrayList<Card>();
-        sortList.addAll(suite);
-
-        Collections.sort(sortList, new Comparator<Card>() {
+    public static List<Card> sortByFaceValue(List<Card> cards) {
+        cards.sort(new Comparator<Card>() {
             public int compare(Card a, Card b) {
-                return a.getFaceValue() >= b.getFaceValue() ? 1 : 0;
+                return a.getFaceValue() - b.getFaceValue();
             }
-
         });
-
-        return sortList;
+        return cards;
     }
 
     public static int distinctFaces(List<Card> cards) {
