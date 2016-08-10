@@ -1,13 +1,11 @@
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 class Card {
 
     private static Map<String, Integer> NumericalValue = null;
 
-    protected static enum Suites {
+    protected static enum Suit {
         SPADES, HEARTS, DIAMONDS, CLUBS, JOKER
     }
 
@@ -15,10 +13,14 @@ class Card {
         BLACK, RED, JOKER
     }
 
+    public static void setAceValue(int value) {
+        NumericalValue.put("A", value);
+    }
+
 
     private String face;
     private Colors color;
-    private Suites suite;
+    private Suit suit;
 
     private static void createMap() {
         NumericalValue = new HashMap<>();
@@ -54,28 +56,24 @@ class Card {
         return this.color;
     }
 
-    protected Suites getSuite() {
-        return this.suite;
+    protected Suit getSuit() {
+        return this.suit;
     }
 
 
-    public Card(String face, Suites suite) {
+    public Card(String face, Suit suite) {
         if (NumericalValue == null) {
             createMap();
         }
         this.face = face.toUpperCase();
-        this.suite = suite;
+        this.suit = suite;
     }
 
     public String toString() {
         if (!face.equalsIgnoreCase("JOKER"))
-            return getFace() + " of " + getSuite();
+            return getFace() + " of " + getSuit();
         else
             return "JOKER";
-    }
-    
-    public static void setAceValue(int value) {
-    	NumericalValue.put("A", value);
     }
 
 }

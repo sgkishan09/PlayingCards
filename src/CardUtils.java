@@ -7,7 +7,7 @@ public class CardUtils {
     public static List<Card> removeJoker(List<Card> cards) {
         List<Card> retVal = new ArrayList<Card>();
         for (Card card : cards) {
-            if (card.getSuite() != Card.Suites.JOKER)
+            if (card.getSuit() != Card.Suit.JOKER)
                 retVal.add(card);
         }
         return retVal;
@@ -26,9 +26,9 @@ public class CardUtils {
 
     public static boolean areSameSuite(List<Card> cards) {
         cards = removeJoker(cards);
-        Card.Suites firstCardSuite = cards.get(0).getSuite();
+        Card.Suit firstCardSuite = cards.get(0).getSuit();
         for (Card card : cards) {
-            if (!(card.getSuite() == firstCardSuite)) {
+            if (!(card.getSuit() == firstCardSuite)) {
                 return false;
             }
         }
@@ -73,19 +73,19 @@ public class CardUtils {
     	}
     	
     	for(Card card : hand.hand) {
-    		if(card.getSuite()==Card.Suites.SPADES) {
+    		if(card.getSuit()== Card.Suit.SPADES) {
     			AllList.get(0).add(card);
     		}
-    		else if(card.getSuite()==Card.Suites.HEARTS) {
+    		else if(card.getSuit()== Card.Suit.HEARTS) {
     			AllList.get(1).add(card);
     		}
-    		else if(card.getSuite()==Card.Suites.DIAMONDS) {
+    		else if(card.getSuit()== Card.Suit.DIAMONDS) {
     			AllList.get(2).add(card);
     		}
-    		else if(card.getSuite()==Card.Suites.CLUBS) {
+    		else if(card.getSuit()== Card.Suit.CLUBS) {
     			AllList.get(3).add(card);
     		}
-    		else if(card.getSuite()==Card.Suites.JOKER) {
+    		else if(card.getSuit()== Card.Suit.JOKER) {
     			AllList.get(4).add(card);
     		}
     	}

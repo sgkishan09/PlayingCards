@@ -7,13 +7,11 @@ public class Deck {
     /**
      * Constructor for Deck. Makes a normal deck.
      */
-    public Deck(int n) {
+    public Deck(int numOfPacks, boolean isJokerDeck) {
     	deck = new ArrayList<>();
-    	for(int i=0;i<n;i++) {
-
-    		Pack p = new Pack();
+    	for(int i=0;i<numOfPacks;i++) {
+    		Pack p = new Pack(isJokerDeck);
     		deck.addAll(p.getCards());
-
     	}
     }
 
