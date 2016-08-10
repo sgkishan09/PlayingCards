@@ -13,7 +13,9 @@ public class PCPlayer {
         hand = playerCards;
     }    
     public Card getNextMove(Card currentOpenCard){
-    	return playingStrategy.getNextMove(currentOpenCard, this.hand);
+    	Card cardToPlay =  playingStrategy.getNextMove(currentOpenCard, this.hand);
+        hand.remove(cardToPlay);
+        return cardToPlay;
     }
     
 }
