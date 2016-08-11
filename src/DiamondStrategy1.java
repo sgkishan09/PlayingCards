@@ -10,7 +10,7 @@ public class DiamondStrategy1 extends DiamondStrategy {
 
     @Override
     public Card getNextMove(Card currentOpenCard, List<Card> hand) {
-        hand = CardUtils.sortByFaceValue(hand);
+        hand = CardUtils.sortByFaceValues(hand);
         int indexOfOver7 = indexOfOver7(hand);
         if (currentOpenCard.getFaceValue() > 8)
             return hand.get(rand.nextInt(hand.size() - indexOfOver7) + indexOfOver7);
