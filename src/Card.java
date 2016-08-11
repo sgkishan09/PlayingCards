@@ -33,6 +33,7 @@ class Card {
         NumericalValue.put("8", 8);
         NumericalValue.put("9", 9);
         NumericalValue.put("10", 10);
+        NumericalValue.put("T", 10);
         NumericalValue.put("J", 11);
         NumericalValue.put("Q", 12);
         NumericalValue.put("K", 13);
@@ -59,6 +60,7 @@ class Card {
         }
     }
 
+    @Override
     public int hashCode() {
         String ref = "23456789TJQKA";
         int suitRank = 0;
@@ -107,7 +109,9 @@ class Card {
             return "JOKER";
     }
 
-    public boolean equals(Card card) {
+    @Override
+    public boolean equals(Object cards) {
+        Card card = (Card) cards;
         return getFaceValue() == card.getFaceValue() && suit == card.getSuit();
     }
 

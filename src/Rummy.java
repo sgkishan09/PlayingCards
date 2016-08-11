@@ -34,8 +34,8 @@ public class Rummy {
                 returnLists = list2;
                 minChanges = currentDiff;
             }
-        } else if (card.getFaceValue() < sequenceSize) {
-            for (int i = 0; i <= card.getFaceValue(); i++) {
+        } else if (card.getFaceValue() - 2 < sequenceSize) {
+            for (int i = 0; i <= card.getFaceValue() - 2; i++) {
                 List<Card> currentSequence = getSequenceAtPosition(card, i, sequenceSize);
                 int currentDiff = findDifference(handCards, currentSequence, numJokers);
                 if (currentDiff < minChanges) {
@@ -72,7 +72,7 @@ public class Rummy {
         int b = i - 1;
         int f = i + 1;
         currentSequence.set(i, card);
-        while (b > 0) {
+        while (b >= 0) {
             currentSequence.set(b, new Card(card.hashCode() - (i - b)));
             b--;
         }
@@ -101,13 +101,22 @@ public class Rummy {
 
     public static Integer findDifference(List<Card> originalList, List<Card> generatedList, Integer numJokers) {
         int difference = 0;
-
-        for (Card card : generatedList) {
-            if (!originalList.contains(card)) {
-                difference++;
+        Card card = null;
+        try {
+            for (int j=0;j<generatedList.size();j++) {
+                card=generatedList.get(j);
+                if (!originalList.contains(card)) {
+                    difference++;
+                }
             }
+        } catch (Exception e) {
+            System.out.println(card + "\t" + originalList + "\t" + generatedList);
+            e.printStackTrace();
         }
-        return difference - numJokers;
+        if (numJokers > difference)
+            return 0;
+        else
+            return difference - numJokers;
     }
 
 
@@ -205,13 +214,20 @@ public class Rummy {
     }
 
     public static void main(String[] args) {
-        jokerValue = 4;
+        jokerValue = 6;
         Hand hand = new Hand(5);
         hand.addCard(new Card("2", Card.Suit.SPADES));
-        hand.addCard(new Card("3", Card.Suit.SPADES));
-        hand.addCard(new Card("7", Card.Suit.SPADES));
-        hand.addCard(new Card("8", Card.Suit.SPADES));
-        hand.addCard(new Card("JOKER", Card.Suit.JOKER));
+        hand.addCard(new Card("A", Card.Suit.SPADES));
+        hand.addCard(new Card("J", Card.Suit.SPADES));
+        hand.addCard(new Card("4", Card.Suit.SPADES));
+        //hand.addCard(new Card("JOKER", Card.Suit.JOKER));
+
+        List<Card> cards = new ArrayList<>();
+        cards.add(new Card("2", Card.Suit.SPADES));
+        cards.add(new Card("3", Card.Suit.SPADES));
+        cards.add(new Card("4", Card.Suit.SPADES));
+        cards.add(new Card("5", Card.Suit.SPADES));
+        cards.add(new Card("6", Card.Suit.SPADES));
 
         System.out.println(checkSequence(hand));
 
