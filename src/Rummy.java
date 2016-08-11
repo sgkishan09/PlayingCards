@@ -10,11 +10,12 @@ public class Rummy {
         List<Card> cards = CardUtils.sortByFaceValues(removeJoker(hand.getCards()));
         int numberToChange = 0;
         for (int i = 0; i < cards.size() - 1; i++) {
-            if (cards.get(i + 1).getFaceValue() - cards.get(i).getFaceValue() != 1)
-                if (numJokers > 0)
-                    numJokers--;
+            int diff = cards.get(i + 1).getFaceValue() - cards.get(i).getFaceValue();
+            if (diff > 1)
+                if (numJokers >= diff)
+                    numJokers -= diff;
                 else
-                    numberToChange++;
+                    numberToChange += (diff - numJokers)
         }
         return numberToChange;
     }
@@ -61,11 +62,6 @@ public class Rummy {
         return ((card.getFaceValue() == -1) || (card.getFaceValue() == jokerValue));
     }
 
-
-    public static void main(String[] args) {
-        Hand hand = new Hand(4);
-    }
-
     public static boolean isDuplicate(Card card, List<Card> cards) {
         for (Card c : cards) {
             if (c.equals(card))
@@ -92,6 +88,10 @@ public class Rummy {
             }
         }
         return noDuplicates;
+    }
+
+    public static void main(String[] args) {
+        Hand hand = new Hand(4);
     }
 
 }
