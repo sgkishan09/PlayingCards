@@ -8,9 +8,9 @@ public class Rummy {
         int numJokers = getNumJokers(hand.getCards());
         List<Card> cards = CardUtils.sortByFaceValues(removeJoker(hand.getCards()));
         int numberToChange = 5;
-        for(Card card : cards) {
+        for (Card card : cards) {
             int currentDiff = generateSequencesWith(card, hand.getCards().size(), cards);
-            if(numberToChange < currentDiff){
+            if (numberToChange < currentDiff) {
                 numberToChange = currentDiff;
             }
         }
@@ -45,7 +45,6 @@ public class Rummy {
     }
 
     public static List<Card> getSequenceAtPosition(Card card, int i, int sequenceSize) {
-        System.out.println("i" + i + "\tSequenceSize" + )
         List<Card> currentSequence = new ArrayList<>(sequenceSize);
         int b = i - 1;
         int f = i + 1;
@@ -158,18 +157,18 @@ public class Rummy {
         return small;
     }
 
-	public static void main(String[] args) {
-	    jokerValue = 4;
-		Hand hand = new Hand(5);
+    public static void main(String[] args) {
+        jokerValue = 4;
+        Hand hand = new Hand(5);
         hand.addCard(new Card("2", Card.Suit.SPADES));
         hand.addCard(new Card("3", Card.Suit.SPADES));
         hand.addCard(new Card("7", Card.Suit.SPADES));
         hand.addCard(new Card("8", Card.Suit.SPADES));
         hand.addCard(new Card("JOKER", Card.Suit.JOKER));
 
-		System.out.println(checkSequence(hand));
+        System.out.println(checkSequence(hand));
 
 
-	}
+    }
 
 }

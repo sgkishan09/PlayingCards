@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -61,7 +62,8 @@ public class RummyClass {
 
     static List<List<List<Integer>>> generateSplits(int arr[], int j, int split[]) {
         List<List<List<Integer>>> listOfpossibleSplits = new ArrayList<>();
-        for (List<Integer> split2 : generateCombinations(arr, arr.length, split[j])) {
+        List<List<Integer>> combinations = generateCombinations(arr, arr.length, split[j]);
+        for (List<Integer> split2 : combinations) {
             List<List<Integer>> temp = new ArrayList<List<Integer>>();
             temp.add(split2);
             if (j == split.length - 1)
@@ -80,22 +82,42 @@ public class RummyClass {
         return listOfpossibleSplits;
     }
 
+    public static List<List<List<Integer>>> generateSplits(int arr[], int split[]) {
+        return generateSplits(arr, 0, split);
+    }
+
+    public static Hand convertInttoHand(List<Integer> integerList) {
+        Hand hand = new Hand(integerList.size());
+        for (int cardHash : integerList)
+            hand.addCard(new Card(cardHash));
+        return hand;
+    }
+
+    public static List<Integer> convertHandtoInt(Hand hand) {
+        List<Integer> integerList = new ArrayList<>();
+        for (Card card : hand.getCards())
+            integerList.add(card.hashCode());
+        return integerList;
+    }
+
+    public static List<Hand> convertIntToHand(List<List<Integer>> listOfSplits) {
+        List<Hand> handList = new ArrayList<>();
+        for (List<Integer> integerList : listOfSplits)
+            handList.add(convertInttoHand(integerList));
+        return handList;
+    }
+
     public static void main(String[] args) {
-        List<ArrayList<Hand>> listofList = new ArrayList<>();
-        List<String> strings = new ArrayList<>();
-        strings.add("A");
-        strings.add("B");
-        int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
-        int r = 4;
-        int n = arr.length;
-        List<Integer> split = Arrays.asList(new Integer[]{4, 3, 3, 3});
-        int s2[] = {4, 3, 3};
-        List<List<List<Integer>>> answer = generateSplits(arr, 0, listToArray(split));
-        System.out.println(answer.size());
         RummyClass rummy = new RummyClass();
         Deck deck = new Deck(2, 2);
-        Hand hand = new Hand(13);
-        hand.addCards(deck.pick(13));
-//        System.out.println(hand);
+        Hand hand = new Hand(7);
+        hand.addCards(deck.pick(7));
+        System.out.println(hand);
+        List<Integer> split = Arrays.asList(new Integer[]{4, 3});
+        List<List<List<Integer>>> answer = generateSplits(listToArray(convertHandtoInt(hand)), listToArray(split));
+        for (int i = 0; i < answer.size(); i++) {
+            List<Hand> hands = convertIntToHand(answer.get(i));
+            System.out.println(hands);
+        }
     }
 }
