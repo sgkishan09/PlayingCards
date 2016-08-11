@@ -40,18 +40,19 @@ class Card {
         NumericalValue.put("JOKER", -1);
     }
 	
-	    public static Card hashCode(int cardNum){
-		// takes value from 2-53, Ace is 14, -1 for joker
-    	int suit = cardNum/15;
-    	int cardRank = cardNum - 13*suit;
-    	String rank = "" + cardRank;
+    public static Card hashCode(int cardNum){
     	if(cardNum == -1) return new Card ("JOKER",Suit.JOKER);
+    	String ref = "A23456789TJQK";
+    	int suit = cardNum/ref.length();
+    	int cardRank = cardNum - ref.length()*suit;
+    	String rank = "" + ref.charAt(cardRank);
     	if (suit == 0) return new Card (rank,Suit.SPADES);
     	if (suit == 1) return new Card (rank,Suit.HEARTS);
     	if (suit == 2) return new Card (rank,Suit.DIAMONDS);
     	if (suit == 3) return new Card (rank,Suit.CLUBS);
 		return null;
     }
+    
 
     /*
      * 	Assessor functions
