@@ -9,22 +9,44 @@ public class Rummy {
         List<Card> cards = CardUtils.sortByFaceValues(removeJoker(hand.getCards()));
         int numberToChange = 5;
         for (Card card : cards) {
-            int currentDiff = generateSequencesWith(card, hand.getCards().size(), cards);
-            if (numberToChange < currentDiff) {
+            int currentDiff = generateSequencesWith(card, hand.getCards().size(), cards, numJokers);
+            if (numberToChange > currentDiff) {
                 numberToChange = currentDiff;
             }
         }
         return numberToChange;
     }
 
-    public static Integer generateSequencesWith(Card card, Integer sequenceSize, List<Card> handCards) {
+    public static Integer generateSequencesWith(Card card, Integer sequenceSize, List<Card> handCards, Integer numJokers) {
         int ACE_VALUE = 14;
         int minChanges = 5;
-        List<Card> returnLists = new ArrayList<Card>();
-        if (!(ACE_VALUE - card.getFaceValue() < sequenceSize - 1) || card.getFaceValue() == ACE_VALUE) {
+        List<Card> returnLists = new ArrayList<>();
+        if (card.getFaceValue() == ACE_VALUE) {
+            List<Card> list1 = getAceSequence(card, 0, sequenceSize);
+            int currentDiff = findDifference(handCards, list1, numJokers);
+            if (currentDiff < minChanges) {
+                returnLists = list1;
+                minChanges = currentDiff;
+            }
+            List<Card> list2 = getAceSequence(card, 0, sequenceSize);
+            currentDiff = findDifference(handCards, list2, numJokers);
+            if (currentDiff < minChanges) {
+                returnLists = list2;
+                minChanges = currentDiff;
+            }
+        } else if (card.getFaceValue() < sequenceSize) {
+            for (int i = 0; i <= card.getFaceValue(); i++) {
+                List<Card> currentSequence = getSequenceAtPosition(card, i, sequenceSize);
+                int currentDiff = findDifference(handCards, currentSequence, numJokers);
+                if (currentDiff < minChanges) {
+                    returnLists = currentSequence;
+                    minChanges = currentDiff;
+                }
+            }
+        } else if (!(ACE_VALUE - card.getFaceValue() < sequenceSize - 1)) {
             for (int i = 0; i < sequenceSize; i++) {
                 List<Card> currentSequence = getSequenceAtPosition(card, i, sequenceSize);
-                int currentDiff = findDifference(handCards, currentSequence);
+                int currentDiff = findDifference(handCards, currentSequence, numJokers);
                 if (currentDiff < minChanges) {
                     returnLists = currentSequence;
                     minChanges = currentDiff;
@@ -34,7 +56,7 @@ public class Rummy {
             int minPosition = sequenceSize - (ACE_VALUE - card.getFaceValue());
             for (int i = sequenceSize - 1; i >= minPosition; i--) {
                 List<Card> currentSequence = getSequenceAtPosition(card, i, sequenceSize);
-                int currentDiff = findDifference(handCards, currentSequence);
+                int currentDiff = findDifference(handCards, currentSequence, numJokers);
                 if (currentDiff < minChanges) {
                     returnLists = currentSequence;
                     minChanges = currentDiff;
@@ -46,6 +68,7 @@ public class Rummy {
 
     public static List<Card> getSequenceAtPosition(Card card, int i, int sequenceSize) {
         List<Card> currentSequence = new ArrayList<>(sequenceSize);
+        currentSequence = nullifyArrayList(currentSequence, sequenceSize);
         int b = i - 1;
         int f = i + 1;
         currentSequence.set(i, card);
@@ -60,14 +83,31 @@ public class Rummy {
         return currentSequence;
     }
 
-    public static Integer findDifference(List<Card> originalList, List<Card> generatedList) {
+    public static List<Card> getAceSequence(Card aceCard, int pos, int sequenceSize) {
+        List<Card> currentSequence = new ArrayList<>(sequenceSize);
+        if (pos == 0) {
+            currentSequence.add(aceCard);
+            for (int i = 1; i < sequenceSize; i++) {
+                currentSequence.add(new Card(aceCard.hashCode() - 13 + i));
+            }
+        } else {
+            for (int i = 0; i < sequenceSize; i++) {
+                currentSequence.add(new Card(aceCard.hashCode() - 12 + i));
+            }
+            currentSequence.add(aceCard);
+        }
+        return currentSequence;
+    }
+
+    public static Integer findDifference(List<Card> originalList, List<Card> generatedList, Integer numJokers) {
         int difference = 0;
-        for (Card card : originalList) {
-            if (!generatedList.contains(card)) {
+
+        for (Card card : generatedList) {
+            if (!originalList.contains(card)) {
                 difference++;
             }
         }
-        return difference;
+        return difference - numJokers;
     }
 
 
@@ -119,7 +159,7 @@ public class Rummy {
 
     public static Integer numDuplicates(List<Card> cards) {
         int numDuplicates = 0;
-        for (int i = 0; i < cards.size(); i++) {
+        for (int i = 0; i < cards.size() - 1; i++) {
             if (isDuplicate(cards.get(i), cards.subList(i + 1, cards.size() - 1))) {
                 numDuplicates++;
             }
@@ -129,11 +169,12 @@ public class Rummy {
 
     public static List<Card> removeDuplicateCards(List<Card> cards) {
         List<Card> noDuplicates = new ArrayList<>();
-        for (int i = 0; i < cards.size(); i++) {
+        for (int i = 0; i < cards.size() - 1; i++) {
             if (!isDuplicate(cards.get(i), cards.subList(i + 1, cards.size() - 1))) {
                 noDuplicates.add(cards.get(i));
             }
         }
+        noDuplicates.add(cards.get(cards.size() - 1));
         return noDuplicates;
     }
 
@@ -155,6 +196,12 @@ public class Rummy {
             }
         }
         return small;
+    }
+
+    public static List<Card> nullifyArrayList(List<Card> cards, Integer size) {
+        for (int i = 0; i < size; i++)
+            cards.add(null);
+        return cards;
     }
 
     public static void main(String[] args) {

@@ -45,7 +45,7 @@ class Card {
             this.face = "JOKER";
             this.suit = Suit.JOKER;
         } else {
-            String ref = "A23456789TJQK";
+            String ref = "23456789TJQKA";
             int suit = cardNum / ref.length();
             int cardRank = cardNum - ref.length() * suit;
             String rank = "" + ref.charAt(cardRank);
@@ -60,7 +60,7 @@ class Card {
     }
 
     public int hashCode() {
-        String ref = "A23456789TJQK";
+        String ref = "23456789TJQKA";
         int suitRank = 0;
         if (this.getSuit() == Suit.JOKER) return -1;
         else if (this.getSuit() == Suit.SPADES) suitRank = 0;
