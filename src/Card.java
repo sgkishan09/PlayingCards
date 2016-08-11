@@ -39,31 +39,37 @@ class Card {
         NumericalValue.put("A", 14);
         NumericalValue.put("JOKER", -1);
     }
-	
-    public static Card hashCode(int cardNum){
-    	if(cardNum == -1) return new Card ("JOKER",Suit.JOKER);
-    	String ref = "A23456789TJQK";
-    	int suit = cardNum/ref.length();
-    	int cardRank = cardNum - ref.length()*suit;
-    	String rank = "" + ref.charAt(cardRank);
-    	if (suit == 0) return new Card (rank,Suit.SPADES);
-    	if (suit == 1) return new Card (rank,Suit.HEARTS);
-    	if (suit == 2) return new Card (rank,Suit.DIAMONDS);
-    	if (suit == 3) return new Card (rank,Suit.CLUBS);
-		return null;
+
+    public Card(int cardNum) {
+        if (cardNum == -1) {
+            this.face = "JOKER";
+            this.suit = Suit.JOKER;
+        } else {
+            String ref = "A23456789TJQK";
+            int suit = cardNum / ref.length();
+            int cardRank = cardNum - ref.length() * suit;
+            String rank = "" + ref.charAt(cardRank);
+            this.face = rank;
+            Suit newSuit;
+            if (suit == 0) newSuit = Suit.SPADES;
+            else if (suit == 1) newSuit = Suit.HEARTS;
+            else if (suit == 2) newSuit = Suit.DIAMONDS;
+            else newSuit = Suit.CLUBS;
+            this.suit = newSuit;
+        }
     }
-	
-	    public int hashCode() {
-    	String ref = "A23456789TJQK";
-    	int suitRank = 0;
-    	if (this.getSuit() == Suit.JOKER) return -1;
-    	else if (this.getSuit() == Suit.SPADES) suitRank = 0;
-    	else if(this.getSuit() == Suit.HEARTS) suitRank = 1;
-    	else if(this.getSuit() == Suit.DIAMONDS) suitRank = 2;
-    	else suitRank = 3;
-    	return suitRank * ref.length() + ref.indexOf(this.getFace());
+
+    public int hashCode() {
+        String ref = "A23456789TJQK";
+        int suitRank = 0;
+        if (this.getSuit() == Suit.JOKER) return -1;
+        else if (this.getSuit() == Suit.SPADES) suitRank = 0;
+        else if (this.getSuit() == Suit.HEARTS) suitRank = 1;
+        else if (this.getSuit() == Suit.DIAMONDS) suitRank = 2;
+        else suitRank = 3;
+        return suitRank * ref.length() + ref.indexOf(this.getFace());
     }
-    
+
 
     /*
      * 	Assessor functions
@@ -100,9 +106,10 @@ class Card {
         else
             return "JOKER";
     }
-    public boolean equals(Card card){
+
+    public boolean equals(Card card) {
         return getFaceValue() == card.getFaceValue() && suit == card.getSuit();
     }
-	
+
 
 }
