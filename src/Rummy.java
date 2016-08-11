@@ -15,7 +15,7 @@ public class Rummy {
                 if (numJokers >= diff)
                     numJokers -= diff;
                 else
-                    numberToChange += (diff - numJokers)
+                    numberToChange += (diff - numJokers);
         }
         return numberToChange;
     }
