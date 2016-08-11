@@ -55,35 +55,27 @@ public class RummyClass {
     public static int[] removeArray(int original[], int subtract[]) {
         List<Integer> origList = arrayToList(original);
         List<Integer> subtractList = arrayToList(subtract);
-        int intArray[] = new int[origList.size() - subtractList.size()];
-        for (Integer i : subtractList) {
-            int k = 0;
-            for (Integer j : origList) {
-                if (i.equals(j)) {
-                    break;
-                }
-                k++;
-
-            }
-            origList.remove(k);
-        }
+        origList.removeAll(subtractList);
         return listToArray(origList);
     }
 
     static List<List<List<Integer>>> generateSplits(int arr[], int j, int split[]) {
         List<List<List<Integer>>> listOfpossibleSplits = new ArrayList<>();
-        for (List<Integer> list : generateCombinations(arr, arr.length, split[j])) {
-            int[] remainingCards = removeArray(arr, listToArray(list));
+        for (List<Integer> split2 : generateCombinations(arr, arr.length, split[j])) {
+            List<List<Integer>> temp = new ArrayList<List<Integer>>();
+            temp.add(split2);
+            if (j == split.length - 1)
+                listOfpossibleSplits.add(temp);
+            int[] remainingCards = removeArray(arr, listToArray(split2));
             if (j < split.length - 1) {
                 for (List<List<Integer>> splitsInAHand : generateSplits(remainingCards, j + 1, split)) {
-                    List<List<Integer>> local = new ArrayList<>();
-                    local.add(list);
+                    List<List<Integer>> listofSplits = new ArrayList<>();
+                    listofSplits.add(split2);
                     for (List<Integer> individualSplit : splitsInAHand)
-                        local.add(individualSplit);
-                    listOfpossibleSplits.add(local);
+                        listofSplits.add(individualSplit);
+                    listOfpossibleSplits.add(listofSplits);
                 }
             }
-            break;
         }
         return listOfpossibleSplits;
     }
@@ -96,9 +88,10 @@ public class RummyClass {
         int arr[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
         int r = 4;
         int n = arr.length;
-        List<Integer> split = Arrays.asList(new Integer[]{5, 4, 4});
+        List<Integer> split = Arrays.asList(new Integer[]{4, 3, 3, 3});
         int s2[] = {4, 3, 3};
-        System.out.println(generateSplits(arr, 0, listToArray(split)));
+        List<List<List<Integer>>> answer = generateSplits(arr, 0, listToArray(split));
+        System.out.println(answer.size());
         RummyClass rummy = new RummyClass();
         Deck deck = new Deck(2, 2);
         Hand hand = new Hand(13);
