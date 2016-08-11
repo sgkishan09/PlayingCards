@@ -8,11 +8,11 @@ public class Deck {
      * Constructor for Deck. Makes a normal deck.
      */
     public Deck(int numOfPacks, int jokers) {
-    	deck = new ArrayList<>();
-    	for(int i=0;i<numOfPacks;i++) {
-    		Pack p = new Pack(jokers);
-    		deck.addAll(p.getCards());
-    	}
+        deck = new ArrayList<>();
+        for (int i = 0; i < numOfPacks; i++) {
+            Pack p = new Pack(jokers);
+            deck.addAll(p.getCards());
+        }
     }
 
     /**
@@ -22,6 +22,14 @@ public class Deck {
      */
     public void shuffle() {
         Collections.shuffle(deck);
+    }
+
+    public List<Card> pick(int n) {
+        this.shuffle();
+        List<Card> cards = new ArrayList<>();
+        while (n-- > 0)
+            cards.add(draw());
+        return cards;
     }
 
     /**
