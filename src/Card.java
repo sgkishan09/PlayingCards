@@ -52,6 +52,17 @@ class Card {
     	if (suit == 3) return new Card (rank,Suit.CLUBS);
 		return null;
     }
+	
+	    public int hashCode() {
+    	String ref = "A23456789TJQK";
+    	int suitRank = 0;
+    	if (this.getSuit() == Suit.JOKER) return -1;
+    	else if (this.getSuit() == Suit.SPADES) suitRank = 0;
+    	else if(this.getSuit() == Suit.HEARTS) suitRank = 1;
+    	else if(this.getSuit() == Suit.DIAMONDS) suitRank = 2;
+    	else suitRank = 3;
+    	return suitRank * ref.length() + ref.indexOf(this.getFace());
+    }
     
 
     /*
