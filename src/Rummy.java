@@ -19,24 +19,21 @@ public class Rummy {
 		return numberToChange;
 	}
 
-	public static int checkSet(Hand hand) {
-		List<Card> cards = removeJoker(hand.getCards());
-		int numOfDuplicates = numDuplicates(cards);
-		List<Card> cardsWithNoDuplicates = removeDuplicateCards(cards);
-		int[] suitArray = { 0, 0, 0, 0 };
-		for (Card card : cardsWithNoDuplicates) {
-			if (card.getSuit() == Card.Suit.CLUBS)
-				suitArray[0]++;
-			else if (card.getSuit() == Card.Suit.SPADES)
-				suitArray[1]++;
-			else if (card.getSuit() == Card.Suit.DIAMONDS)
-				suitArray[2]++;
-			else
-				suitArray[3]++;
-		}
-		Arrays.sort(suitArray);
-		return (suitArray[0] + suitArray[1] + suitArray[2] + numOfDuplicates);
-	}
+    public static int checkSet(Hand hand) {
+        List<Card> cards = removeJoker(hand.getCards());
+        int numOfDuplicates = numDuplicates(cards);
+        List<Card> cardsWithNoDuplicates = removeDuplicateCards(cards);
+        int[] faceValueArray = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        for (Card card : cardsWithNoDuplicates) {
+            faceValueArray[card.getFaceValue() - 2]++;
+        }
+        Arrays.sort(faceValueArray);
+        int toChange = numOfDuplicates;
+        for (int value : faceValueArray) {
+            toChange += value;
+        }
+        return (toChange - faceValueArray[12]);
+    }
 
 	public static List<Card> removeJoker(List<Card> cards) {
 		List<Card> retVal = new ArrayList<Card>();
