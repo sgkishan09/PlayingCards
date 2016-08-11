@@ -69,7 +69,7 @@ public class CardUtils {
         return values;
     }
 
-    public static List<Card> sortByFaceValue(List<Card> cards) {
+    public static List<Card> sortByFaceValues(List<Card> cards) {
         cards.sort(new Comparator<Card>() {
             public int compare(Card a, Card b) {
                 return a.getFaceValue() - b.getFaceValue();
